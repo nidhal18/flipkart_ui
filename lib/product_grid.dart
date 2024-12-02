@@ -1,4 +1,3 @@
-import 'package:flipkart_ui/product_card.dart';
 import 'package:flutter/material.dart';
 
 class ProductGrid extends StatelessWidget {
@@ -18,24 +17,59 @@ class ProductGrid extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.7,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemCount: 6, // Number of products
-        itemBuilder: (context, index) {
-          final imageUrl = (randomImages..shuffle()).first; // Pick random image
-          return ProductCard(
-            imageUrl: imageUrl,
-            name: "Product $index",
-            price: "\$${(index + 1) * 20}",
-          );
-        },
-      ),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.7,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+          ),
+          itemCount: 8,
+          itemBuilder: (context, index) {
+            return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              elevation: 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(10)),
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'assets/product1${index + 1}.jpg'), // Replace with product images
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Product ${index + 1}',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text('₹${(index + 1) * 299}'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Buy Now'),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
     );
   }
 }
